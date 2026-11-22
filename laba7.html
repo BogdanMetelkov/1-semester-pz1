@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoService Pro — Інтерактивна візитівка СТО</title>
+  <style>
+    :root {
+      --bg-page: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-header: #0f172a;
+      --accent: #f59e0b;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+    }
+
+    body.dark-theme {
+      --bg-page: #0b1120;
+      --bg-card: #1e293b;
+      --bg-header: #020617;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      background: var(--bg-header);
+      color: #fff;
+      padding: 16px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .theme-btn {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      padding: 44px 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+    }
+
+    .section {
+      padding: 36px 0 8px;
+    }
+
+    .section-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    input, select {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .price {
+      font-weight: 700;
+      color: #d97706;
+    }
+
+    .booking-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 22px;
+      border-radius: 12px;
+      margin-top: 14px;
+    }
+
+    .booking-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .submit-btn {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 10px 16px;
+    }
+
+    .orders-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .order-item {
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: rgba(245, 158, 11, 0.12);
+      border-left: 4px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .del-btn {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .footer {
+      background: var(--bg-header);
+      color: #94a3b8;
+      text-align: center;
+      padding: 18px 0;
+      margin-top: 44px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">AutoService <span>Pro</span></a>
+      <nav class="nav">
+        <a href="#services">Послуги</a>
+        <a href="#booking">Онлайн-запис</a>
+        <button id="themeToggle" class="theme-btn" type="button">Темна тема</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Інтерактивний сервіс автообслуговування у Луцьку</h1>
+      <p>Оберіть послугу та створіть заявку на ремонт онлайн за кілька секунд.</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="services" class="section">
+      <div class="section-top">
+        <h2>Каталог послуг</h2>
+        <input type="text" id="serviceSearch" placeholder="Пошук послуги...">
+      </div>
+
+      <div class="services-grid">
+        <article class="card">
+          <h3>Комп’ютерна діагностика</h3>
+          <p>Сканування електронних блоків двигуна, ABS та АКПП.</p>
+          <span class="price">500 грн</span>
+        </article>
+        <article class="card">
+          <h3>Технічне обслуговування (ТО)</h3>
+          <p>Заміна моторної оливи та комплекту фільтрів.</p>
+          <span class="price">700 грн</span>
+        </article>
+        <article class="card">
+          <h3>Ремонт ходової частини</h3>
+          <p>Діагностика підвіски та заміна гальмівних колодок.</p>
+          <span class="price">600 грн</span>
+        </article>
+        <article class="card">
+          <h3>Розвал-сходження 3D</h3>
+          <p>Регулювання кутів встановлення коліс на стенді.</p>
+          <span class="price">850 грн</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="booking" class="section">
+      <h2>Онлайн-запис на ремонт (динамічний DOM)</h2>
+      <div class="booking-box">
+        <form id="bookingForm" class="booking-form">
+          <input type="text" id="clientName" placeholder="Ваше ім’я" required>
+          <input type="text" id="carModel" placeholder="Марка та модель авто" required>
+          <select id="serviceSelect">
+            <option value="Комп’ютерна діагностика (500 грн)">Комп’ютерна діагностика (500 грн)</option>
+            <option value="Технічне обслуговування (700 грн)">Технічне обслуговування (700 грн)</option>
+            <option value="Ремонт ходової частини (600 грн)">Ремонт ходової частини (600 грн)</option>
+            <option value="Розвал-сходження 3D (850 грн)">Розвал-сходження 3D (850 грн)</option>
+          </select>
+          <button type="submit" class="submit-btn">Записатися</button>
+        </form>
+
+        <div id="ordersList" class="orders-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 AutoService Pro | Виконав: Метельков Богдан (група 22-ІСТ)</p>
+    </div>
+  </footer>
+
+  <script>
+    const servicesCatalog = [
+      { id: 1, name: "Комп’ютерна діагностика", price: 500 },
+      { id: 2, name: "Технічне обслуговування (ТО)", price: 700 },
+      { id: 3, name: "Ремонт ходової частини", price: 600 },
+      { id: 4, name: "Розвал-сходження 3D", price: 850 }
+    ];
+
+    console.log("Сторінку AutoService Pro успішно ініціалізовано");
+    console.table(servicesCatalog);
+
+    // 1. Зміна стилів сторінки (перемикання теми)
+    const themeBtn = document.getElementById("themeToggle");
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-theme");
+      const isDark = document.body.classList.contains("dark-theme");
+      themeBtn.textContent = isDark ? "Світла тема" : "Темна тема";
+      console.log("[UI] Змінено тему оформлення:", isDark ? "Темна" : "Світла");
+    });
+
+    // 2. Обробка події input (живий пошук послуг)
+    const searchInput = document.getElementById("serviceSearch");
+    const serviceCards = document.querySelectorAll("#services .card");
+
+    searchInput.addEventListener("input", (event) => {
+      const query = event.target.value.trim().toLowerCase();
+      serviceCards.forEach((card) => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = title.includes(query) ? "flex" : "none";
+      });
+      console.log("[Search] Пошуковий запит:", query || "(усі послуги)");
+    });
+
+    // 3. Динамічне створення та видалення елементів у DOM
+    const bookingForm = document.getElementById("bookingForm");
+    const ordersList = document.getElementById("ordersList");
+
+    bookingForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const clientName = document.getElementById("clientName").value.trim();
+      const carModel = document.getElementById("carModel").value.trim();
+      const serviceName = document.getElementById("serviceSelect").value;
+
+      const orderItem = document.createElement("div");
+      orderItem.className = "order-item";
+      orderItem.innerHTML = `
+        <div><strong>${clientName}</strong> (${carModel}) — <span>${serviceName}</span></div>
+        <button type="button" class="del-btn">Скасувати</button>
+      `;
+
+      orderItem.querySelector(".del-btn").addEventListener("click", () => {
+        orderItem.remove();
+        console.warn("[Booking] Заявку скасовано:", clientName);
+      });
+
+      ordersList.appendChild(orderItem);
+      console.log("[Booking] Створено нову заявку:", { clientName, carModel, serviceName });
+      bookingForm.reset();
+    });
+  </script>
+</body>
+</html>
